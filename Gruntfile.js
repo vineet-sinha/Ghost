@@ -300,6 +300,9 @@ var path           = require('path'),
             clean: {
                 build: {
                     src: ['<%= paths.buildBuild %>/**']
+                },
+                test: {
+                    src: ['content/data/ghost-test.db']
                 }
             },
 
@@ -460,6 +463,7 @@ var path           = require('path'),
                             'core/client/assets/vendor/to-title-case.js',
                             'core/client/assets/vendor/packery.pkgd.min.js',
                             'core/client/assets/vendor/fastclick.js',
+                            'core/client/assets/vendor/nprogress.js',
 
                             'core/client/init.js',
 
@@ -859,10 +863,10 @@ var path           = require('path'),
         grunt.registerTask('init', ['shell:bourbon', 'default']);
 
         // Run unit tests
-        grunt.registerTask('test-unit', ['setTestEnv', 'loadConfig', 'express:test', 'mochacli:all']);
+        grunt.registerTask('test-unit', ['clean:test', 'setTestEnv', 'loadConfig', 'express:test', 'mochacli:all']);
 
         // Run casperjs tests only
-        grunt.registerTask('test-functional', ['setTestEnv', 'express:test', 'spawn-casperjs']);
+        grunt.registerTask('test-functional', ['clean:test', 'setTestEnv', 'express:test', 'spawn-casperjs']);
 
         // Run tests and lint code
         grunt.registerTask('validate', ['jslint', 'test-unit', 'test-functional']);
